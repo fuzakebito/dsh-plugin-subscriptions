@@ -54,7 +54,6 @@
   "scripts": {
     "build": "tsc && tsdown",
     "test": "tsc -p tsconfig.test.json && node --test \"lib-test/test/**/*.spec.js\"",
-    "prepare": "node scripts/prepare.mjs",
     "prepublishOnly": "pnpm build && pnpm test"
   },
   "peerDependencies": {

@@ -313,7 +313,7 @@ pnpm build     # tsc(lib/)+ tsdown(lib/client.js 浏览器 bundle)
 pnpm test      # 编译后跑 node --test 单测
 ```
 
-`prepare`(git 安装时触发)仅在缺少预构建的 `lib/` 入口文件时执行 `tsdown.prepare.config.ts`。检出中已包含这些文件时按原样安装,不会重新构建或覆盖 `lib/index.js`。回退打包仍把所有 `@deepseek-ai/*` 依赖外部化 —— 运行时从 dsh 安装解析,保证不会引入第二份 cordis。
+从 git 安装时直接使用已提交的 `lib/`,不会在安装时构建。没有 `prepare` 脚本:pnpm 10 会拒绝带有该脚本的 git 依赖,除非安装方把它加入允许列表;而且该构建会用没有 `.d.ts` 的 bundle 覆盖 `lib/index.js`。若源码检出缺少 `lib/`,仍可执行 `tsdown -c tsdown.prepare.config.ts` 构建两个面,并把所有 `@deepseek-ai/*` 依赖外部化 —— 运行时从 dsh 安装解析,保证不会引入第二份 cordis。
 
 pnpm 的 package extension 为 Node 组件测试补齐已发布 UI primitives 的浏览器依赖；实际浏览器运行时仍由 DSH 提供这些库。
 

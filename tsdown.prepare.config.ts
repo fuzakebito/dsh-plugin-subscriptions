@@ -1,9 +1,10 @@
 /**
- * Fallback bundle for a git install whose checkout has no prebuilt `lib/`.
- * `scripts/prepare.mjs` skips this when the published entrypoints are already
- * present: this build replaces tsc's `lib/index.js` with one bundle and does
- * not emit `.d.ts`. Every `@deepseek-ai` specifier stays external — they
- * resolve from the dsh installation at runtime. Local development uses
+ * Manual fallback bundle for a source checkout that has no prebuilt `lib/`.
+ * It is not an install script: pnpm 10 refuses a git dependency that defines
+ * `prepare` unless the consumer allowlists it, and this build would also
+ * replace tsc's `lib/index.js` without emitting `.d.ts`. Run
+ * `tsdown -c tsdown.prepare.config.ts` only when `lib/` is absent. Every
+ * `@deepseek-ai` specifier stays external. Local development uses
  * `pnpm build` (tsc + tsdown), which also emits type declarations.
  */
 import { defineConfig } from 'tsdown'
