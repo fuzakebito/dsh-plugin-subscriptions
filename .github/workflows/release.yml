@@ -118,7 +118,8 @@ jobs:
 
       # No NODE_AUTH_TOKEN: npm authenticates with the job's OIDC token and
       # attaches a provenance attestation linking the tarball to this commit
-      # and workflow run. `prepublishOnly`/`prepare` run as they do locally.
+      # and workflow run. `prepublishOnly` runs as it does locally. Git
+      # installs do not build; they use the committed lib/.
       - name: Publish to npm
         run: npm publish --registry=https://registry.npmjs.org --provenance --access public --tag "$DIST_TAG"
 

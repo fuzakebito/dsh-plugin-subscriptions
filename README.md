@@ -325,7 +325,7 @@ For the optional offline quota UI check, point `PLAYWRIGHT_PATH` at an installed
 
 The pnpm package extension supplies the published UI primitives' browser dependencies for Node component tests. DSH supplies those libraries to the browser at runtime.
 
-`prepare` (used by git installs) runs `tsdown.prepare.config.ts`: a self-contained bundle build of both faces with all `@deepseek-ai/*` specifiers external — they resolve from the dsh installation at runtime, so this package never carries a second cordis copy.
+Git installs use the committed `lib/` and do not run a build. There is no `prepare` script: pnpm 10 refuses a git dependency that has one unless the installer allowlists it, and that build would replace `lib/index.js` with a bundle that has no `.d.ts`. For a source checkout that is missing `lib/`, `tsdown -c tsdown.prepare.config.ts` still builds both faces with every `@deepseek-ai/*` specifier external — they resolve from the dsh installation at runtime, so this package never carries a second cordis copy.
 
 After `pnpm build`, restart `dsh web` to pick up changes.
 
