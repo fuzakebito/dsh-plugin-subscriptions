@@ -313,7 +313,7 @@ pnpm build     # tsc(lib/)+ tsdown(lib/client.js 浏览器 bundle)
 pnpm test      # 编译后跑 node --test 单测
 ```
 
-`prepare`(git 安装时触发)执行 `tsdown.prepare.config.ts`:自包含打包两个面,所有 `@deepseek-ai/*` 依赖外部化 —— 运行时从 dsh 安装解析,保证不会引入第二份 cordis。
+`prepare`(git 安装时触发)仅在缺少预构建的 `lib/` 入口文件时执行 `tsdown.prepare.config.ts`。检出中已包含这些文件时按原样安装,不会重新构建或覆盖 `lib/index.js`。回退打包仍把所有 `@deepseek-ai/*` 依赖外部化 —— 运行时从 dsh 安装解析,保证不会引入第二份 cordis。
 
 pnpm 的 package extension 为 Node 组件测试补齐已发布 UI primitives 的浏览器依赖；实际浏览器运行时仍由 DSH 提供这些库。
 

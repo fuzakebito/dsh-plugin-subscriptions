@@ -1,10 +1,10 @@
 /**
- * Self-contained build for git installs (`dsh plugin add github:...` fetches
- * sources and runs this via `prepare`, without the monorepo context tsc
- * type-checking needs). Emits both faces as bundles with every @deepseek-ai
- * specifier external — they resolve from the dsh installation at runtime.
- * Local development uses `pnpm build` (tsc + tsdown) instead, which also
- * emits type declarations.
+ * Fallback bundle for a git install whose checkout has no prebuilt `lib/`.
+ * `scripts/prepare.mjs` skips this when the published entrypoints are already
+ * present: this build replaces tsc's `lib/index.js` with one bundle and does
+ * not emit `.d.ts`. Every `@deepseek-ai` specifier stays external — they
+ * resolve from the dsh installation at runtime. Local development uses
+ * `pnpm build` (tsc + tsdown), which also emits type declarations.
  */
 import { defineConfig } from 'tsdown'
 import clientConfig from './tsdown.config.ts'
